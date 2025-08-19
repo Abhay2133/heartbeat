@@ -67,6 +67,15 @@ async function handlePing(ctx, response, error) {
 module.exports = { handlePing };
 
 // --- Helpers ---
+/**
+ * Restart a Google Cloud Compute Engine instance using the Compute Engine REST API.
+ * @param {object} options - Configuration options for the restart operation.
+ * @param {string} options.projectId - GCP project ID containing the instance.
+ * @param {string} options.zone - GCP zone where the instance is located.
+ * @param {string} options.instance - Name of the Compute Engine instance to restart.
+ * @param {string} [options.strategy='start'] - Restart strategy: 'start' or 'reset'.
+ * @throws {Error} Throws an error if the restart operation fails (unless instance is already running).
+ */
 async function restartComputeInstance({ projectId, zone, instance, strategy = 'start' }) {
   // Uses Google Auth Library to acquire an access token and call the Compute Engine REST API.
   // Requires ADC to be available (e.g., GOOGLE_APPLICATION_CREDENTIALS pointing to a service account JSON,
